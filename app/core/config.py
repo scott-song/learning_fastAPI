@@ -1,37 +1,64 @@
-from typing import List, Optional, Union
+from typing import List
 
-from pydantic import AnyHttpUrl, field_validator
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "FastAPI Project"
+    # Project Information
+    PROJECT_NAME: str = "FastAPI Learning Project"
     VERSION: str = "1.0.0"
     DESCRIPTION: str = "A FastAPI project with best practices structure"
 
+    # API Configuration
     API_V1_STR: str = "/api/v1"
 
-    # CORS
-    BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
+    # CORS Settings
+    BACKEND_CORS_ORIGINS: str = ""
 
-    @field_validator("BACKEND_CORS_ORIGINS", mode="before")
-    @classmethod
-    def assemble_cors_origins(
-        cls, v: Union[str, List[str]]
-    ) -> Union[List[str], str]:
-        if isinstance(v, str) and not v.startswith("["):
-            return [i.strip() for i in v.split(",")]
-        elif isinstance(v, (list, str)):
-            return v
-        raise ValueError(v)
+    def get_cors_origins(self) -> List[str]:
+        """Parse CORS origins from string to list"""
+        if (
+            not self.BACKEND_CORS_ORIGINS
+            or self.BACKEND_CORS_ORIGINS.strip() == ""
+        ):
+            return []
+        return [
+            origin.strip()
+            for origin in self.BACKEND_CORS_ORIGINS.split(",")
+            if origin.strip()
+        ]
 
-    # Database
-    DATABASE_URL: Optional[str] = "sqlite:///./app.db"
+    # Database Configuration
+    DATABASE_URL: str = "sqlite:///./app.db"
 
-    # Security
+    # Security Settings
     SECRET_KEY: str = "your-secret-key-here-change-in-production"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+
+    # Superuser Configuration
+    FIRST_SUPERUSER: str = "admin@example.com"
+    FIRST_SUPERUSER_PASSWORD: str = "changethis"
+
+    # Email Configuration (Optional)
+    EMAILS_ENABLED: bool = False
+    EMAILS_FROM_NAME: str = "FastAPI Project"
+    EMAILS_FROM_EMAIL: str = "noreply@example.com"
+
+    # SMTP Configuration
+    SMTP_HOST: str = "localhost"
+    SMTP_PORT: int = 587
+    SMTP_TLS: bool = True
+    SMTP_USER: str = ""
+    SMTP_PASSWORD: str = ""
+
+    # Email Templates
+    EMAIL_TEMPLATES_DIR: str = "app/email-templates"
+    EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = 48
+
+    # Development Settings
+    DEBUG: bool = True
+    LOG_LEVEL: str = "INFO"
 
     class Config:
         env_file = ".env"
