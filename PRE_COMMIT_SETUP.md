@@ -6,7 +6,7 @@ This document explains the pre-commit hooks configuration for your Poetry-based 
 
 Pre-commit hooks are scripts that run automatically before each git commit to:
 - ✅ Validate code quality
-- 🔧 Auto-fix formatting issues  
+- 🔧 Auto-fix formatting issues
 - 🚨 Prevent broken code from being committed
 - 📋 Ensure consistent coding standards
 
@@ -26,7 +26,7 @@ This installs hooks for:
 ### **2. Manual Testing**
 ```bash
 make pre-commit-run
-# or  
+# or
 poetry run pre-commit run --all-files
 ```
 
@@ -190,7 +190,7 @@ echo "large_file.dat" >> .gitignore
 
 ### **Before Pre-commit**
 - Manual linting: `make lint`
-- Manual formatting: `make format`  
+- Manual formatting: `make format`
 - Inconsistent code quality
 - Broken commits slip through
 
@@ -209,7 +209,7 @@ Your pre-commit hooks complement your Makefile workflow:
 # Local development
 git commit -m "Feature"  # Pre-commit runs automatically
 
-# CI/CD pipeline  
+# CI/CD pipeline
 make ci                  # Runs same checks in CI
 ```
 
@@ -230,4 +230,4 @@ Your project now has:
 2. Share this setup with your team
 3. Consider adding more hooks as needed (e.g., commit message validation)
 
-Happy coding! 🎉 
+Happy coding! 🎉

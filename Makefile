@@ -47,4 +47,4 @@ pre-commit-run:  ## Run all pre-commit hooks
 	poetry run pre-commit run --all-files
 
 pre-commit-update:  ## Update pre-commit hooks to latest versions
-	poetry run pre-commit autoupdate 
+	poetry run pre-commit autoupdate

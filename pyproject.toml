@@ -100,7 +100,7 @@ use_parentheses = true             # Use parentheses for line continuation
 ensure_newline_before_comments = true
 sections = [
     "FUTURE",
-    "STDLIB", 
+    "STDLIB",
     "THIRDPARTY",
     "FIRSTPARTY",
     "LOCALFOLDER"
@@ -108,7 +108,7 @@ sections = [
 known_first_party = ["app"]        # Your app modules
 known_third_party = [
     "fastapi",
-    "pydantic", 
+    "pydantic",
     "sqlalchemy",
     "alembic",
     "pytest"
@@ -160,7 +160,7 @@ ignore_errors = true
 source = ["app"]
 omit = [
     "app/tests/*",
-    "*/venv/*", 
+    "*/venv/*",
     "*/.venv/*",
     "*/migrations/*",
     "*/alembic/*",
@@ -185,4 +185,4 @@ exclude_lines = [
 ]
 
 [tool.coverage.html]
-directory = "htmlcov"             # HTML report directory 
+directory = "htmlcov"             # HTML report directory

@@ -97,4 +97,4 @@ default_install_hook_types: [pre-commit, pre-push]
 fail_fast: false
 
 # Minimum pre-commit version
-minimum_pre_commit_version: '3.0.0' 
+minimum_pre_commit_version: '3.0.0'

@@ -81,4 +81,4 @@ Just type:
 make check-all
 ```
 
-**That's it!** 🎉 Your development workflow is now streamlined and professional. 
+**That's it!** 🎉 Your development workflow is now streamlined and professional.

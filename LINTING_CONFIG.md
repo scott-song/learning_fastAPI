@@ -51,7 +51,7 @@ force_grid_wrap = 0                # Don't force grid wrap
 use_parentheses = true             # Use parentheses for line continuation
 sections = [
     "FUTURE",
-    "STDLIB", 
+    "STDLIB",
     "THIRDPARTY",
     "FIRSTPARTY",
     "LOCALFOLDER"
@@ -59,7 +59,7 @@ sections = [
 known_first_party = ["app"]        # Your app modules
 known_third_party = [
     "fastapi",
-    "pydantic", 
+    "pydantic",
     "sqlalchemy"
 ]
 ```
@@ -125,13 +125,13 @@ max-line-length = 79
 max-complexity = 10
 select = E,W,F,C
 ignore = E203,W503,W504
-exclude = 
+exclude =
     .git,
     __pycache__,
     .venv,
     migrations,
     alembic
-per-file-ignores = 
+per-file-ignores =
     __init__.py:F401,F403
     test_*.py:F841
 ```
@@ -280,4 +280,4 @@ Your project is configured for **Phase 1** with room to grow:
 - ✅ Good test coverage setup
 - ✅ Makefile integration
 
-You can gradually tighten the rules as your codebase matures! 🎉 
+You can gradually tighten the rules as your codebase matures! 🎉
