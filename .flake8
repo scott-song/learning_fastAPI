@@ -1,0 +1,44 @@
+# =============================================================================
+# FLAKE8 CONFIGURATION
+# =============================================================================
+# Flake8 doesn't support pyproject.toml, so we use .flake8 file
+
+[flake8]
+# Basic settings
+max-line-length = 79
+max-complexity = 10
+select = E,W,F,C
+ignore = E203,W503,W504
+exclude = 
+    .git,
+    __pycache__,
+    .pytest_cache,
+    .mypy_cache,
+    .venv,
+    venv,
+    migrations,
+    alembic,
+    build,
+    dist
+
+# Per-file ignores
+per-file-ignores = 
+    # Allow unused imports in __init__.py files
+    __init__.py:F401,F403
+    # Allow long lines in settings files
+    */settings.py:E501
+    # Allow unused variables in test files
+    test_*.py:F841
+    # Allow unused imports in conftest.py
+    conftest.py:F401,F403
+
+# Naming conventions
+classmethod-decorators = classmethod
+staticmethod-decorators = staticmethod
+
+# Docstring conventions (if using flake8-docstrings)
+docstring-convention = google
+
+# Import order (if using flake8-import-order)
+import-order-style = pep8
+application-import-names = app 

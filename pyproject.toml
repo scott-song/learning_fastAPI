@@ -1,0 +1,188 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "fastapi-project"
+version = "1.0.0"
+description = "A FastAPI project with best practices structure"
+authors = ["scott song <scott.song@live.com>"]
+readme = "README.md"
+packages = [{include = "app"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.108.0"
+uvicorn = {extras = ["standard"], version = "^0.25.0"}
+pydantic = "^2.5.2"
+pydantic-settings = "^2.1.0"
+sqlalchemy = "^2.0.25"
+alembic = "^1.13.1"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-multipart = "^0.0.6"
+email-validator = "^2.1.0"
+emails = "^0.6.0"
+jinja2 = "^3.1.2"
+python-dotenv = "^1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+httpx = "^0.26.0"
+pytest-asyncio = "^0.23.2"
+pytest-cov = "^4.1.0"
+black = "^23.12.1"
+isort = "^5.13.2"
+mypy = "^1.8.0"
+flake8 = "^6.1.0"
+pre-commit = "^3.6.0"
+factory-boy = "^3.3.0"
+rich = "^13.7.0"
+ipdb = "^0.13.13"
+
+# =============================================================================
+# PYTEST CONFIGURATION
+# =============================================================================
+bandit = "^1.8.5"
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = [
+    "-v",                           # Verbose output
+    "--tb=short",                   # Short traceback format
+    "--cov=app",                    # Coverage for app directory
+    "--cov-report=term-missing",    # Show missing lines in terminal
+    "--cov-report=html",            # Generate HTML coverage report
+    "--cov-fail-under=80",          # Fail if coverage below 80%
+    "--strict-markers",             # Strict marker validation
+    "--disable-warnings",           # Disable warnings in output
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+# =============================================================================
+# BLACK CONFIGURATION (Code Formatter)
+# =============================================================================
+[tool.black]
+line-length = 79                   # Max line length
+target-version = ['py312']         # Target Python version
+include = '\.pyi?$'                # Include Python files
+extend-exclude = '''
+/(
+    # Exclude common directories
+    \.eggs
+  | \.git
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.venv
+  | _build
+  | build
+  | dist
+  | migrations
+)/
+'''
+
+# =============================================================================
+# ISORT CONFIGURATION (Import Sorter)
+# =============================================================================
+[tool.isort]
+profile = "black"                  # Compatible with Black
+line_length = 79                   # Match Black's line length
+multi_line_output = 3              # Vertical hanging indent
+include_trailing_comma = true      # Add trailing comma
+force_grid_wrap = 0                # Don't force grid wrap
+use_parentheses = true             # Use parentheses for line continuation
+ensure_newline_before_comments = true
+sections = [
+    "FUTURE",
+    "STDLIB", 
+    "THIRDPARTY",
+    "FIRSTPARTY",
+    "LOCALFOLDER"
+]
+known_first_party = ["app"]        # Your app modules
+known_third_party = [
+    "fastapi",
+    "pydantic", 
+    "sqlalchemy",
+    "alembic",
+    "pytest"
+]
+
+# =============================================================================
+# MYPY CONFIGURATION (Type Checker)
+# =============================================================================
+[tool.mypy]
+python_version = "3.12"
+strict = false                     # Start with less strict, gradually increase
+warn_return_any = true
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+ignore_missing_imports = true      # Ignore missing stubs for now
+show_error_codes = true            # Show error codes
+pretty = true                      # Pretty output
+color_output = true                # Colored output
+
+# Gradually enable these as you fix type issues
+disallow_untyped_defs = false      # Allow untyped function definitions
+disallow_incomplete_defs = false   # Allow incomplete function definitions
+disallow_untyped_calls = false     # Allow calls to untyped functions
+no_implicit_optional = false       # Allow implicit Optional types
+
+# Exclude specific files/directories
+exclude = [
+    "migrations/",
+    "tests/",
+    "alembic/"
+]
+
+# Per-module options
+[[tool.mypy.overrides]]
+module = "tests.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "alembic.*"
+ignore_errors = true
+
+# =============================================================================
+# COVERAGE CONFIGURATION
+# =============================================================================
+[tool.coverage.run]
+source = ["app"]
+omit = [
+    "app/tests/*",
+    "*/venv/*", 
+    "*/.venv/*",
+    "*/migrations/*",
+    "*/alembic/*",
+    "app/db/init_db.py",           # Skip initialization scripts
+]
+branch = true                      # Measure branch coverage
+
+[tool.coverage.report]
+precision = 2                      # Decimal precision for percentages
+show_missing = true               # Show missing lines
+skip_covered = false              # Don't skip fully covered files
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "def __str__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"             # HTML report directory 
