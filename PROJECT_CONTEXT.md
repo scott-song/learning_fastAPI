@@ -5,11 +5,13 @@ This document helps maintain context about the project for future development se
 ## 🎯 **Project Vision & Goals**
 
 ### **Primary Purpose**
+
 - **What**: Learning FastAPI with professional development practices
 - **Why**: Build production-ready API skills with modern tooling
 - **Target**: Domain-driven architecture with comprehensive quality control
 
 ### **Key Learning Objectives**
+
 - [ ] Master FastAPI framework fundamentals
 - [ ] Implement domain-driven design patterns
 - [ ] Set up professional development tooling
@@ -20,6 +22,7 @@ This document helps maintain context about the project for future development se
 ## 🏗️ **Architecture Decisions**
 
 ### **Domain Structure**
+
 ```
 domains/
 ├── users/          # User management & authentication
@@ -30,6 +33,7 @@ domains/
 **Rationale**: Clean separation of concerns, scalable structure
 
 ### **Technology Stack**
+
 - **Framework**: FastAPI (async, automatic docs, type safety)
 - **Database**: SQLite → PostgreSQL (development → production)
 - **ORM**: SQLAlchemy 2.0 (modern async syntax)
@@ -40,14 +44,16 @@ domains/
 ## 🛠️ **Development Setup Choices**
 
 ### **Quality Control Pipeline**
+
 1. **Black**: 79-char formatting (fits terminal/GitHub)
-2. **isort**: Import organization
-3. **flake8**: Style enforcement
-4. **mypy**: Gradual typing (strict=false initially)
-5. **bandit**: Security scanning
-6. **pre-commit**: Automated quality gates
+1. **isort**: Import organization
+1. **flake8**: Style enforcement
+1. **mypy**: Gradual typing (strict=false initially)
+1. **bandit**: Security scanning
+1. **pre-commit**: Automated quality gates
 
 ### **Package Management**
+
 - **Poetry**: Modern dependency management
 - **pyproject.toml**: Single configuration file
 - **Lock files**: Reproducible builds
@@ -55,6 +61,7 @@ domains/
 ## 🎯 **Current Status**
 
 ### **Completed Features**
+
 - ✅ Project structure with domain architecture
 - ✅ Database setup with User/Item models
 - ✅ CRUD operations base class
@@ -65,6 +72,7 @@ domains/
 - ✅ Documentation and guides
 
 ### **Pending/Future Features**
+
 - [ ] Complete authentication endpoints
 - [ ] JWT token validation middleware
 - [ ] Items CRUD endpoints
@@ -78,16 +86,19 @@ domains/
 ## 🚧 **Known Issues & Technical Debt**
 
 ### **Type Safety**
+
 - MyPy errors in user CRUD (Column[str] vs str types)
 - Need proper SQLAlchemy model type annotations
 - Consider using SQLModel for better type integration
 
 ### **Configuration**
+
 - Missing .env.example file
 - Need environment-specific settings
 - Database URL should be configurable
 
 ### **Testing**
+
 - Basic test structure exists but needs expansion
 - Need integration tests for API endpoints
 - Database testing with fixtures needed
@@ -95,39 +106,45 @@ domains/
 ## 📋 **Development Patterns**
 
 ### **Adding New Domains**
+
 1. Create domain directory: `app/domains/new_domain/`
-2. Add models, schemas, crud, endpoints, service
-3. Generate migration: `alembic revision --autogenerate`
-4. Update API router in `api_router.py`
-5. Add tests in `tests/api/`
+1. Add models, schemas, crud, endpoints, service
+1. Generate migration: `alembic revision --autogenerate`
+1. Update API router in `api_router.py`
+1. Add tests in `tests/api/`
 
 ### **Code Quality Workflow**
+
 1. Write code
-2. Run `make check-all` locally
-3. Commit (pre-commit hooks run automatically)
-4. Push (pre-push hooks validate)
+1. Run `make check-all` locally
+1. Commit (pre-commit hooks run automatically)
+1. Push (pre-push hooks validate)
 
 ### **Database Changes**
+
 1. Modify SQLAlchemy models
-2. Generate migration: `alembic revision --autogenerate`
-3. Review migration file
-4. Apply: `alembic upgrade head`
+1. Generate migration: `alembic revision --autogenerate`
+1. Review migration file
+1. Apply: `alembic upgrade head`
 
 ## 💡 **Future Improvements**
 
 ### **Short Term**
+
 - Fix type safety issues
 - Add comprehensive test suite
 - Complete authentication flow
 - Add API documentation examples
 
 ### **Medium Term**
+
 - Add caching (Redis)
 - Implement API versioning
 - Add background tasks (Celery)
 - Set up CI/CD pipeline
 
 ### **Long Term**
+
 - Microservice architecture
 - Event-driven patterns
 - Performance optimization
@@ -143,13 +160,15 @@ domains/
 ## 📞 **Questions for Future Sessions**
 
 **Always ask about:**
+
 1. What specific feature/domain are we working on?
-2. Are we adding new functionality or refactoring existing?
-3. Should we maintain the current architecture patterns?
-4. Any specific performance or security requirements?
-5. Testing approach for new features?
+1. Are we adding new functionality or refactoring existing?
+1. Should we maintain the current architecture patterns?
+1. Any specific performance or security requirements?
+1. Testing approach for new features?
 
 **Context to remember:**
+
 - This is a learning project focused on best practices
 - Code quality and documentation are prioritized
 - Domain-driven architecture should be maintained

@@ -32,6 +32,7 @@ extend-exclude = '''
 ```
 
 ### **Common Black Options:**
+
 - `line-length`: Maximum line length (default: 88)
 - `target-version`: Python versions to target
 - `include`: File patterns to include
@@ -65,6 +66,7 @@ known_third_party = [
 ```
 
 ### **Common isort Options:**
+
 - `profile`: Predefined configuration (black, django, pycharm, etc.)
 - `multi_line_output`: How to handle multi-line imports (0-5)
 - `line_length`: Maximum line length
@@ -104,12 +106,14 @@ ignore_errors = true
 ```
 
 ### **MyPy Strictness Levels:**
+
 1. **Beginner** (current): `strict = false`, allow untyped code
-2. **Intermediate**: Enable `disallow_untyped_defs = true`
-3. **Advanced**: Enable `strict = true`
-4. **Expert**: Add `disallow_any_generics = true`
+1. **Intermediate**: Enable `disallow_untyped_defs = true`
+1. **Advanced**: Enable `strict = true`
+1. **Expert**: Add `disallow_any_generics = true`
 
 ### **Common MyPy Options:**
+
 - `strict`: Enable all strict checks
 - `disallow_untyped_defs`: Require type annotations for functions
 - `disallow_any_generics`: Disallow `Any` in generic types
@@ -137,6 +141,7 @@ per-file-ignores =
 ```
 
 ### **Common Flake8 Options:**
+
 - `max-line-length`: Maximum line length
 - `max-complexity`: Maximum cyclomatic complexity
 - `select`: Error codes to check (E=errors, W=warnings, F=pyflakes, C=complexity)
@@ -145,6 +150,7 @@ per-file-ignores =
 - `per-file-ignores`: Ignore specific codes for specific files
 
 ### **Useful Flake8 Error Codes:**
+
 - `E203`: Whitespace before ':' (conflicts with Black)
 - `W503`: Line break before binary operator
 - `F401`: Module imported but unused
@@ -172,6 +178,7 @@ markers = [
 ```
 
 ### **Common Pytest Options:**
+
 - `testpaths`: Directories to search for tests
 - `python_files`: Test file patterns
 - `python_classes`: Test class patterns
@@ -201,6 +208,7 @@ exclude_lines = [
 ```
 
 ### **Coverage Options:**
+
 - `source`: Directories to measure
 - `omit`: Files to exclude
 - `branch`: Enable branch coverage
@@ -210,6 +218,7 @@ exclude_lines = [
 ## 🎛️ **Customization Examples**
 
 ### **Stricter MyPy (Gradual Adoption)**
+
 ```toml
 [tool.mypy]
 strict = true
@@ -219,6 +228,7 @@ no_implicit_optional = true
 ```
 
 ### **Relaxed Flake8 for Legacy Code**
+
 ```ini
 [flake8]
 max-line-length = 120
@@ -227,6 +237,7 @@ ignore = E203,W503,W504,F401,E501
 ```
 
 ### **Black with Longer Lines**
+
 ```toml
 [tool.black]
 line-length = 88
@@ -249,24 +260,27 @@ make check-all       # All quality checks
 ## 💡 **Pro Tips**
 
 1. **Start Less Strict**: Begin with relaxed settings, gradually tighten
-2. **Tool Compatibility**: Ensure Black, isort, and flake8 work together
-3. **Per-File Ignores**: Use for legacy code or special cases
-4. **CI Integration**: Use same settings in CI/CD pipelines
-5. **Team Consensus**: Agree on rules with your team
+1. **Tool Compatibility**: Ensure Black, isort, and flake8 work together
+1. **Per-File Ignores**: Use for legacy code or special cases
+1. **CI Integration**: Use same settings in CI/CD pipelines
+1. **Team Consensus**: Agree on rules with your team
 
 ## 🎯 **Recommended Progression**
 
 ### **Phase 1: Basic Setup**
+
 - Configure Black and isort
 - Basic flake8 rules
 - MyPy with `strict = false`
 
 ### **Phase 2: Intermediate**
+
 - Enable more MyPy warnings
 - Add coverage requirements
 - Stricter flake8 rules
 
 ### **Phase 3: Advanced**
+
 - MyPy strict mode
 - High coverage requirements (90%+)
 - Custom flake8 plugins
@@ -274,6 +288,7 @@ make check-all       # All quality checks
 ## 🚀 **Your Current Setup**
 
 Your project is configured for **Phase 1** with room to grow:
+
 - ✅ Black + isort compatibility
 - ✅ Reasonable flake8 rules
 - ✅ MyPy with gradual typing

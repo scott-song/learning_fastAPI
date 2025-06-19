@@ -1,4 +1,4 @@
-.PHONY: help format sort-imports lint type-check test test-cov dev clean check-all install
+.PHONY: help format sort-imports lint type-check test test-cov dev clean check-all install format-md check-md
 
 help:  ## Show this help message
 	@echo "Available commands:"
@@ -7,8 +7,9 @@ help:  ## Show this help message
 install:  ## Install dependencies
 	poetry install
 
-format:  ## Format code with Black
+format:  ## Format code with Black and markdown
 	poetry run black app/ tests/
+	poetry run mdformat *.md
 
 sort-imports:  ## Sort imports with isort
 	poetry run isort app/ tests/
@@ -35,7 +36,13 @@ clean:  ## Clean cache and temporary files
 	rm -rf htmlcov
 	rm -rf .coverage
 
-check-all: format sort-imports lint type-check  ## Run all code quality checks
+format-md:  ## Format markdown files
+	poetry run mdformat *.md
+
+check-md:  ## Check markdown formatting
+	poetry run mdformat --check *.md
+
+check-all: format sort-imports lint type-check check-md  ## Run all code quality checks
 
 ci: check-all test  ## Run all CI checks (format, lint, type-check, test)
 

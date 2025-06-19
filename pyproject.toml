@@ -44,6 +44,7 @@ ipdb = "^0.13.13"
 # PYTEST CONFIGURATION
 # =============================================================================
 bandit = "^1.8.5"
+mdformat = "^0.7.22"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = "test_*.py"

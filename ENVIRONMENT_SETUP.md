@@ -5,22 +5,26 @@ This guide explains how to use the `env.example` template to configure your Fast
 ## 🎯 **Quick Setup**
 
 ### **1. Copy the Template**
+
 ```bash
 cp env.example .env
 ```
 
 ### **2. Generate Secure Secret Key**
+
 ```bash
 # Generate a secure secret key for JWT tokens
 openssl rand -hex 32
 ```
 
 ### **3. Edit Your .env File**
+
 Open `.env` in your editor and customize the values below.
 
 ## 📋 **Required Configuration**
 
 ### **🔐 Security Settings (CRITICAL)**
+
 ```env
 # Replace with generated secret key from step 2
 SECRET_KEY="your-generated-secret-key-here"
@@ -31,6 +35,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
 ### **👤 Superuser Account**
+
 ```env
 # Change these to your preferred admin credentials
 FIRST_SUPERUSER="admin@yourdomain.com"
@@ -38,6 +43,7 @@ FIRST_SUPERUSER_PASSWORD="your-secure-password"
 ```
 
 ### **🌐 CORS Configuration**
+
 ```env
 # For development - allows frontend connections
 BACKEND_CORS_ORIGINS="http://localhost:3000,http://localhost:8000,http://127.0.0.1:3000,http://127.0.0.1:8000"
@@ -49,6 +55,7 @@ BACKEND_CORS_ORIGINS="http://localhost:3000,http://localhost:8000,http://127.0.0
 ## 🔧 **Optional Configuration**
 
 ### **💾 Database Settings**
+
 ```env
 # Default SQLite (good for development)
 DATABASE_URL="sqlite:///./app.db"
@@ -58,6 +65,7 @@ DATABASE_URL="sqlite:///./app.db"
 ```
 
 ### **📧 Email Configuration**
+
 ```env
 # Disable emails in development
 EMAILS_ENABLED=false
@@ -71,6 +79,7 @@ EMAILS_ENABLED=false
 ```
 
 ### **🐛 Development Settings**
+
 ```env
 # Keep true for development
 DEBUG=true
@@ -80,6 +89,7 @@ LOG_LEVEL="INFO"
 ## 🚀 **Environment-Specific Examples**
 
 ### **Development .env**
+
 ```env
 SECRET_KEY="fa6e138f80c5055940129a70c4b1654d69fd2f31d7b4f967c205cef3995edf4e"
 DATABASE_URL="sqlite:///./app.db"
@@ -91,6 +101,7 @@ EMAILS_ENABLED=false
 ```
 
 ### **Production .env**
+
 ```env
 SECRET_KEY="your-production-secret-generated-with-openssl"
 DATABASE_URL="postgresql://user:password@db:5432/fastapi_prod"
@@ -108,24 +119,28 @@ SMTP_PASSWORD="your-sendgrid-api-key"
 ## ✅ **Verification Steps**
 
 ### **1. Test Configuration Loading**
+
 ```bash
 # This should run without configuration errors
 make lint
 ```
 
 ### **2. Start the Application**
+
 ```bash
 # Start development server
 make dev
 ```
 
 ### **3. Check API Documentation**
+
 ```bash
 # Open in browser or test with curl
 curl http://localhost:8000/docs
 ```
 
 ### **4. Test Database Connection**
+
 ```bash
 # Run database migrations
 poetry run alembic upgrade head
@@ -134,6 +149,7 @@ poetry run alembic upgrade head
 ## 🔒 **Security Best Practices**
 
 ### **✅ DO:**
+
 - Always generate unique SECRET_KEY for each environment
 - Use strong passwords for FIRST_SUPERUSER_PASSWORD
 - Keep .env files out of version control (already in .gitignore)
@@ -141,6 +157,7 @@ poetry run alembic upgrade head
 - Regularly rotate secrets in production
 
 ### **❌ DON'T:**
+
 - Never commit .env files to git
 - Don't use default passwords in production
 - Don't share SECRET_KEY between environments
@@ -152,20 +169,24 @@ poetry run alembic upgrade head
 ### **Common Issues:**
 
 **1. "Settings has no attribute X" errors**
+
 - Make sure all variables in `env.example` are in your `.env`
 - Check for typos in variable names
 
 **2. Database connection errors**
+
 - Verify DATABASE_URL format
 - Ensure database exists (SQLite auto-creates)
 - Check PostgreSQL credentials and connectivity
 
 **3. CORS errors**
+
 - Add your frontend URL to BACKEND_CORS_ORIGINS
 - Include both localhost and 127.0.0.1 variants
 - Check port numbers match your frontend
 
 **4. JWT token errors**
+
 - Ensure SECRET_KEY is properly set
 - Verify ALGORITHM is "HS256"
 - Check ACCESS_TOKEN_EXPIRE_MINUTES is a number
@@ -189,8 +210,8 @@ For complete list, see `env.example` file comments.
 After setting up your environment:
 
 1. **Create superuser**: `poetry run python -m app.db.init_db`
-2. **Run tests**: `make test`
-3. **Start coding**: Follow the patterns in `.cursorrules`
-4. **Deploy**: Use production .env configuration
+1. **Run tests**: `make test`
+1. **Start coding**: Follow the patterns in `.cursorrules`
+1. **Deploy**: Use production .env configuration
 
 Need help? Check `PROJECT_CONTEXT.md` for architecture guidance!

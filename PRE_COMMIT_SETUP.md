@@ -5,6 +5,7 @@ This document explains the pre-commit hooks configuration for your Poetry-based 
 ## 🎯 **What Are Pre-commit Hooks?**
 
 Pre-commit hooks are scripts that run automatically before each git commit to:
+
 - ✅ Validate code quality
 - 🔧 Auto-fix formatting issues
 - 🚨 Prevent broken code from being committed
@@ -13,6 +14,7 @@ Pre-commit hooks are scripts that run automatically before each git commit to:
 ## 🛠️ **Installation & Setup**
 
 ### **1. Install Pre-commit Hooks**
+
 ```bash
 make pre-commit-install
 # or
@@ -20,10 +22,12 @@ poetry run pre-commit install
 ```
 
 This installs hooks for:
+
 - `pre-commit`: Runs before each commit
 - `pre-push`: Runs before each push
 
 ### **2. Manual Testing**
+
 ```bash
 make pre-commit-run
 # or
@@ -65,6 +69,7 @@ poetry run pre-commit run --all-files
 ## 🔄 **How Pre-commit Works**
 
 ### **Normal Git Workflow**
+
 ```bash
 # 1. Make changes to your code
 git add .
@@ -77,6 +82,7 @@ git commit -m "Your commit message"
 ```
 
 ### **When Hooks Fail**
+
 ```bash
 # Example: Flake8 finds issues
 git commit -m "Add new feature"
@@ -94,6 +100,7 @@ git commit -m "Add new feature"
 ## 🎛️ **Configuration Details**
 
 ### **Poetry Hooks Configuration**
+
 ```yaml
 - repo: https://github.com/python-poetry/poetry
   rev: '1.8.3'
@@ -106,6 +113,7 @@ git commit -m "Add new feature"
 ```
 
 ### **Key Features**
+
 - **poetry-check**: Prevents committing broken `pyproject.toml`
 - **poetry-lock**: Ensures dependencies are properly locked
 - **poetry-export**: Keeps `requirements.txt` in sync automatically
@@ -121,6 +129,7 @@ git commit -m "Add new feature"
 ## 💡 **Pro Tips**
 
 ### **1. Skip Hooks (Emergency Only)**
+
 ```bash
 # Skip all hooks (use sparingly!)
 git commit -m "Emergency fix" --no-verify
@@ -130,6 +139,7 @@ SKIP=flake8 git commit -m "WIP: ignore linting for now"
 ```
 
 ### **2. Run Specific Hooks**
+
 ```bash
 # Run only Poetry hooks
 poetry run pre-commit run poetry-check poetry-lock poetry-export
@@ -139,6 +149,7 @@ poetry run pre-commit run black isort
 ```
 
 ### **3. Update Hook Versions**
+
 ```bash
 # Update all hooks to latest versions
 make pre-commit-update
@@ -148,7 +159,9 @@ poetry run pre-commit autoupdate
 ```
 
 ### **4. Performance Optimization**
+
 The configuration includes:
+
 - `fail_fast: false` - Run all hooks even if one fails
 - `default_install_hook_types: [pre-commit, pre-push]` - Install both types
 - File pattern matching to skip unnecessary runs
@@ -158,6 +171,7 @@ The configuration includes:
 ### **Common Issues**
 
 **1. Hook Installation Failed**
+
 ```bash
 # Reinstall pre-commit
 poetry add --group dev pre-commit
@@ -165,6 +179,7 @@ make pre-commit-install
 ```
 
 **2. Poetry Export Fails**
+
 ```bash
 # Ensure poetry.lock is up to date
 poetry lock
@@ -172,12 +187,14 @@ poetry run pre-commit run poetry-export
 ```
 
 **3. Network Issues**
+
 ```bash
 # Skip problematic hooks temporarily
 SKIP=mypy git commit -m "Skip mypy due to network issues"
 ```
 
 **4. Large Files Blocked**
+
 ```bash
 # Check file sizes
 ls -lh path/to/large/file
@@ -189,12 +206,14 @@ echo "large_file.dat" >> .gitignore
 ## 📊 **Benefits**
 
 ### **Before Pre-commit**
+
 - Manual linting: `make lint`
 - Manual formatting: `make format`
 - Inconsistent code quality
 - Broken commits slip through
 
 ### **After Pre-commit**
+
 - ✅ Automatic code quality checks
 - ✅ Consistent formatting
 - ✅ Prevents broken commits
@@ -218,6 +237,7 @@ This ensures the same quality standards locally and in CI! 🚀
 ## 📋 **Current Status**
 
 Your project now has:
+
 - ✅ Poetry hooks installed and configured
 - ✅ Python linting hooks (Black, isort, flake8, bandit)
 - ✅ General file quality hooks
@@ -226,8 +246,9 @@ Your project now has:
 - ✅ Comprehensive documentation
 
 **Next Steps:**
+
 1. Make a test commit to see hooks in action
-2. Share this setup with your team
-3. Consider adding more hooks as needed (e.g., commit message validation)
+1. Share this setup with your team
+1. Consider adding more hooks as needed (e.g., commit message validation)
 
 Happy coding! 🎉

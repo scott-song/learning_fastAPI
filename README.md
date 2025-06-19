@@ -11,6 +11,7 @@ A production-ready FastAPI project featuring domain-driven architecture, compreh
 ## 🚀 **Features**
 
 ### **Core Framework**
+
 - **FastAPI 0.108+**: Modern, fast web framework with automatic API documentation
 - **Domain-Driven Architecture**: Clean separation of concerns with domains (users, items, core)
 - **SQLAlchemy 2.0**: Latest ORM with modern async support
@@ -18,6 +19,7 @@ A production-ready FastAPI project featuring domain-driven architecture, compreh
 - **Pydantic v2**: High-performance data validation and serialization
 
 ### **Professional Development Tooling**
+
 - **Poetry**: Modern dependency management with lock files
 - **Pre-commit Hooks**: Automated code quality checks before commits
 - **Comprehensive Linting**: Black, isort, flake8, mypy, bandit
@@ -26,6 +28,7 @@ A production-ready FastAPI project featuring domain-driven architecture, compreh
 - **Type Safety**: Full mypy integration with gradual typing
 
 ### **Security & Authentication**
+
 - **JWT Authentication**: Secure token-based authentication
 - **Password Hashing**: bcrypt for secure password storage
 - **Security Scanning**: Bandit for vulnerability detection
@@ -79,6 +82,7 @@ learning_fastAPI/
 ## 🏃‍♂️ **Quick Start**
 
 ### **1. Prerequisites**
+
 ```bash
 # Ensure Python 3.12 is installed
 python --version  # Should show Python 3.12.x
@@ -88,6 +92,7 @@ curl -sSL https://install.python-poetry.org | python3 -
 ```
 
 ### **2. Setup Project**
+
 ```bash
 # Clone the repository
 git clone https://github.com/scott-song/learning_fastAPI.git
@@ -104,6 +109,7 @@ poetry run alembic upgrade head
 ```
 
 ### **3. Run Development Server**
+
 ```bash
 # Start the development server
 make dev
@@ -113,6 +119,7 @@ poetry run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ### **4. Access the Application**
+
 - **API Documentation**: http://localhost:8000/docs
 - **Alternative Docs**: http://localhost:8000/redoc
 - **Main Endpoint**: http://localhost:8000
@@ -120,6 +127,7 @@ poetry run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ## 🛠️ **Development Workflow**
 
 ### **Available Make Commands**
+
 ```bash
 make help              # Show all available commands
 make install           # Install dependencies
@@ -142,22 +150,26 @@ make ci               # Run complete CI pipeline
 ```
 
 ### **Code Quality Pipeline**
+
 Every commit automatically runs:
+
 1. **Black**: Code formatting (79 character lines)
-2. **isort**: Import sorting and organization
-3. **flake8**: Style guide enforcement and error detection
-4. **mypy**: Static type checking
-5. **bandit**: Security vulnerability scanning
-6. **General checks**: YAML/JSON validation, trailing whitespace, etc.
+1. **isort**: Import sorting and organization
+1. **flake8**: Style guide enforcement and error detection
+1. **mypy**: Static type checking
+1. **bandit**: Security vulnerability scanning
+1. **General checks**: YAML/JSON validation, trailing whitespace, etc.
 
 ### **Adding New Features**
 
 #### **1. Create a New Domain**
+
 ```bash
 mkdir -p app/domains/new_domain/{models,schemas,crud,endpoints,service}
 ```
 
 #### **2. Add Database Models**
+
 ```python
 # app/domains/new_domain/models/__init__.py
 from sqlalchemy import Column, Integer, String
@@ -170,6 +182,7 @@ class NewModel(Base):
 ```
 
 #### **3. Create Schemas**
+
 ```python
 # app/domains/new_domain/schemas/__init__.py
 from pydantic import BaseModel
@@ -184,6 +197,7 @@ class NewModel(NewModelCreate):
 ```
 
 #### **4. Generate Migration**
+
 ```bash
 poetry run alembic revision --autogenerate -m "Add new_table"
 poetry run alembic upgrade head
@@ -208,6 +222,7 @@ poetry run pytest -m "not slow"
 ## 📊 **Database Management**
 
 ### **Migrations**
+
 ```bash
 # Generate new migration
 poetry run alembic revision --autogenerate -m "Description"
@@ -223,7 +238,9 @@ poetry run alembic history
 ```
 
 ### **Database Schema**
+
 The project includes:
+
 - **Users table**: Authentication and user management
 - **Items table**: Sample domain entity with user relationships
 - **Alembic version tracking**: Migration history
@@ -231,7 +248,9 @@ The project includes:
 ## 🔧 **Configuration**
 
 ### **Environment Variables**
+
 Create a `.env` file (copy from `.env.example`):
+
 ```bash
 # Database
 DATABASE_URL=sqlite:///./app.db
@@ -246,7 +265,9 @@ BACKEND_CORS_ORIGINS=["http://localhost:3000"]
 ```
 
 ### **Tool Configuration**
+
 All tools are configured in `pyproject.toml`:
+
 - **Black**: 79-character lines, Python 3.12 target
 - **isort**: Black-compatible, organized import sections
 - **mypy**: Gradual typing approach
@@ -256,6 +277,7 @@ All tools are configured in `pyproject.toml`:
 ## 🚀 **Deployment**
 
 ### **Production Setup**
+
 ```bash
 # Install production dependencies only
 poetry install --only=main
@@ -269,6 +291,7 @@ poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
 ### **Docker Support**
+
 ```dockerfile
 FROM python:3.12-slim
 WORKDIR /app
@@ -287,14 +310,15 @@ CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0"]
 ## 🤝 **Contributing**
 
 1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Make changes** (pre-commit hooks will run automatically)
-4. **Run the full CI pipeline**: `make ci`
-5. **Commit changes**: `git commit -m "Add amazing feature"`
-6. **Push to branch**: `git push origin feature/amazing-feature`
-7. **Open a Pull Request**
+1. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+1. **Make changes** (pre-commit hooks will run automatically)
+1. **Run the full CI pipeline**: `make ci`
+1. **Commit changes**: `git commit -m "Add amazing feature"`
+1. **Push to branch**: `git push origin feature/amazing-feature`
+1. **Open a Pull Request**
 
 ### **Code Standards**
+
 - **Line length**: 79 characters (Black enforced)
 - **Type hints**: Encouraged, gradually enforced by mypy
 - **Docstrings**: Google style for public APIs
@@ -304,6 +328,7 @@ CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0"]
 ## 📈 **Performance & Python 3.12**
 
 This project leverages Python 3.12's improvements:
+
 - **40% faster comprehensions**: Optimized data processing
 - **Better error messages**: Enhanced debugging experience
 - **Improved asyncio**: Perfect for FastAPI's async capabilities
@@ -332,6 +357,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **[Pre-commit](https://pre-commit.com/)**: Git hook framework
 - **Python 3.12**: Latest performance improvements
 
----
+______________________________________________________________________
 
 **Built with ❤️ using FastAPI, Poetry, and Python 3.12**

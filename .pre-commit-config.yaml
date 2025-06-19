@@ -46,6 +46,14 @@ repos:
           - flake8-docstrings
           - flake8-import-order
 
+  # Markdown formatting
+  - repo: https://github.com/executablebooks/mdformat
+    rev: '0.7.22'
+    hooks:
+      - id: mdformat
+        name: Markdown Formatter
+        description: Format markdown files with mdformat
+
   # General pre-commit hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0

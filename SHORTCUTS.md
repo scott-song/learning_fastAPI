@@ -30,21 +30,25 @@ make dev            # Start development server
 ## 🔄 **Common Workflows**
 
 ### Before Committing Code:
+
 ```bash
 make check-all      # Format, sort imports, lint, type-check
 ```
 
 ### Full CI Check:
+
 ```bash
 make ci             # All quality checks + tests
 ```
 
 ### Development Server:
+
 ```bash
 make dev            # Start with auto-reload
 ```
 
 ### After Git Pull:
+
 ```bash
 make install        # Update dependencies
 make clean          # Clear cache
@@ -53,10 +57,10 @@ make clean          # Clear cache
 ## 💡 **Pro Tips**
 
 1. **Always run `make check-all`** before committing
-2. **Use `make ci`** to simulate the full CI pipeline locally
-3. **Run `make clean`** if you encounter import or cache issues
-4. **Use `make dev`** for development with auto-reload
-5. **Tab completion works** - type `make` + TAB to see options
+1. **Use `make ci`** to simulate the full CI pipeline locally
+1. **Run `make clean`** if you encounter import or cache issues
+1. **Use `make dev`** for development with auto-reload
+1. **Tab completion works** - type `make` + TAB to see options
 
 ## ✅ **Benefits of Makefile**
 
@@ -69,6 +73,7 @@ make clean          # Clear cache
 ## 🎯 **Your New Workflow**
 
 Instead of typing:
+
 ```bash
 poetry run black app/ tests/
 poetry run isort app/ tests/
@@ -77,6 +82,7 @@ poetry run mypy app/
 ```
 
 Just type:
+
 ```bash
 make check-all
 ```
