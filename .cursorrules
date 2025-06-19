@@ -1,0 +1,203 @@
+# FastAPI Learning Project - Cursor Rules
+# These rules ensure consistency with our established patterns and quality standards
+
+## 🏗️ ARCHITECTURE PRINCIPLES
+
+### Domain-Driven Design
+- Follow domain structure: `app/domains/{domain_name}/{models,schemas,crud,endpoints,service}/`
+- Keep domains isolated - no cross-domain imports except through service layer
+- Use absolute imports: `from app.domains.users.models import User`
+- Each domain should have complete CRUD operations before adding new domains
+
+### File Organization
+- Models: SQLAlchemy database models with proper type annotations
+- Schemas: Pydantic models for API input/output validation
+- CRUD: Database operations using our CRUDBase pattern
+- Endpoints: FastAPI route definitions with proper dependencies
+- Service: Business logic layer between endpoints and CRUD
+
+## 🔧 CODE QUALITY STANDARDS
+
+### Python & FastAPI
+- Use Python 3.12 features and type hints everywhere
+- Line length: 79 characters (BLACK and flake8 configured)
+- Use modern SQLAlchemy 2.0 syntax with `Mapped` and `mapped_column`
+- All async functions should use proper `async`/`await` patterns
+- Use dependency injection for database sessions: `db: Session = Depends(get_db)`
+
+### Type Safety
+```python
+# ✅ Good: Proper SQLAlchemy 2.0 typing
+from sqlalchemy.orm import Mapped, mapped_column
+
+class User(Base):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    email: Mapped[str] = mapped_column(String, unique=True)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+
+# ✅ Good: Pydantic schemas with validation
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str = Field(..., min_length=8)
+    full_name: Optional[str] = None
+```
+
+### Security
+- Never store plain text passwords - always use `get_password_hash()`
+- Use JWT tokens for authentication with proper expiration
+- Validate all inputs with Pydantic schemas
+- Use dependency injection for authentication: `current_user: User = Depends(get_current_user)`
+
+## 📁 FILE PATTERNS
+
+### When creating new domains:
+1. Create directory: `app/domains/{domain_name}/`
+2. Add `__init__.py` files in each subdirectory
+3. Generate migration: `alembic revision --autogenerate -m "add {domain_name}"`
+4. Update `app/api/api_router.py` to include new endpoints
+5. Add tests in `tests/api/test_{domain_name}.py`
+
+### CRUD Operations
+- Inherit from `CRUDBase[Model, CreateSchema, UpdateSchema]`
+- Add domain-specific methods (e.g., `get_by_email` for users)
+- Handle password hashing in CRUD layer, not endpoints
+- Use proper error handling with FastAPI exceptions
+
+### API Endpoints
+```python
+# ✅ Good: Proper endpoint structure
+@router.post("/", response_model=UserResponse, status_code=201)
+async def create_user(
+    *,
+    db: Session = Depends(get_db),
+    user_in: UserCreate,
+    current_user: User = Depends(get_current_active_superuser),
+) -> Any:
+    """Create new user. Requires superuser privileges."""
+    user = user_crud.get_by_email(db, email=user_in.email)
+    if user:
+        raise HTTPException(
+            status_code=400,
+            detail="User with this email already exists"
+        )
+    user = user_crud.create(db, obj_in=user_in)
+    return user
+```
+
+## 🛠️ DEVELOPMENT WORKFLOW
+
+### Before Any Code Changes
+- Run `make format` to apply Black formatting
+- Run `make sort-imports` to organize imports
+- Run `make lint` to check style compliance
+- Run `make type-check` to verify type safety
+
+### Testing Requirements
+- Write tests for all new endpoints in `tests/api/`
+- Maintain 80% test coverage minimum
+- Use pytest fixtures for database setup
+- Test both success and error scenarios
+
+### Git Workflow
+- Pre-commit hooks will run automatically (configured in `.pre-commit-config.yaml`)
+- If hooks fail, fix issues before committing
+- Write clear commit messages describing the change
+- Reference issue numbers when applicable
+
+## 🔍 COMMON PATTERNS
+
+### Database Models
+```python
+# ✅ Use this pattern for all models
+class NewModel(Base):
+    __tablename__ = "new_models"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+    updated_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True), onupdate=func.now()
+    )
+```
+
+### Error Handling
+```python
+# ✅ Use HTTPException for API errors
+from fastapi import HTTPException
+
+if not user:
+    raise HTTPException(
+        status_code=404,
+        detail="User not found"
+    )
+```
+
+### Configuration
+- Add new settings to `app/core/config.py`
+- Document in `env.example` with comments
+- Use environment variables for all configuration
+- Set sensible defaults for development
+
+## 🚫 AVOID THESE PATTERNS
+
+### ❌ Don't do this:
+```python
+# Old SQLAlchemy syntax
+id = Column(Integer, primary_key=True)
+
+# Missing type hints
+def get_user(db, user_id):
+    return db.query(User).filter(User.id == user_id).first()
+
+# Hardcoded values
+SECRET_KEY = "hardcoded-secret"
+
+# Cross-domain imports
+from app.domains.items.models import Item  # in users domain
+```
+
+### ❌ Avoid:
+- Using `print()` for debugging (use logging instead)
+- Skipping error handling in endpoints
+- Creating endpoints without proper dependencies
+- Committing `.env` files or database files
+- Using `assert` statements (security risk)
+
+## 📚 LEARNING PRIORITIES
+
+### Focus on these FastAPI concepts:
+1. Dependency injection system
+2. Pydantic validation and serialization
+3. SQLAlchemy 2.0 modern syntax
+4. Async/await patterns
+5. JWT authentication implementation
+6. Proper error handling and status codes
+
+### Code Review Checklist:
+- [ ] Follows domain-driven architecture
+- [ ] Proper type annotations throughout
+- [ ] SQLAlchemy 2.0 `Mapped` syntax used
+- [ ] All endpoints have proper dependencies
+- [ ] Error handling with meaningful messages
+- [ ] Tests included for new functionality
+- [ ] Documentation updated if needed
+- [ ] Pre-commit hooks pass
+
+## 🎯 PROJECT-SPECIFIC CONTEXT
+
+### Current State
+- Using Poetry for dependency management
+- SQLite database with Alembic migrations
+- User authentication system in progress
+- Pre-commit hooks configured (Black, isort, flake8, mypy, bandit)
+- Domain structure: users/ and items/ domains established
+
+### Next Features to Implement
+1. Complete JWT authentication endpoints
+2. User-Item relationship endpoints
+3. API rate limiting
+4. Comprehensive test suite
+5. Production deployment configuration
+
+Remember: This is a learning project focused on best practices. Quality and understanding are more important than speed!
