@@ -13,7 +13,26 @@ router = APIRouter()
 
 @router.get("/", response_model=List[User])
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    """Retrieve users"""
+    """
+    Retrieve a list of users.
+
+    Full URL path: /api/v1/users/
+
+    The path is built up through multiple router inclusions:
+    1. In main.py: app.include_router(api_router, prefix="/api/v1")
+    2. In api_router.py: api_router.include_router(
+       users_router, prefix="/users", tags=["users"])
+    3. In this file: @router.get("/") defines the final path segment
+
+    So when you make a GET request to /api/v1/users/, it gets routed here.
+    The "users" part comes from the prefix defined in api_router.py when
+    including this router.
+
+    Query Parameters:
+    - skip: Number of records to skip (pagination offset)
+    - limit: Maximum number of records to return (pagination limit)
+    """
+    print("read_users")
     users = user_crud.get_multi(db, skip=skip, limit=limit)
     return users
 
