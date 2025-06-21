@@ -2,11 +2,28 @@ from typing import List, Optional
 
 from sqlalchemy.orm import Session
 
-from .crud import user_crud
-from .schemas import User, UserCreate, UserUpdate
+from app.domains.users.crud import user_crud
+from app.domains.users.schemas import User, UserCreate, UserUpdate
 
 
 class UserService:
+    """User business logic and service layer
+
+    This service class is called by the user endpoints in
+    app/domains/users/endpoints/__init__.py
+    to handle business logic between the API layer and database operations.
+
+    Current endpoint usage:
+    - read_users(): Not yet using service layer
+    - create_user(): Not yet using service layer
+    - read_user_by_id(): Not yet using service layer
+    - update_user(): Not yet using service layer
+    - delete_user(): Not yet using service layer
+
+    TODO: Update endpoints to use this service layer instead of directly
+    accessing CRUD operations
+    """
+
     """User business logic and service layer"""
 
     def __init__(self):
