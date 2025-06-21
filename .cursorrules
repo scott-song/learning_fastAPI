@@ -101,8 +101,51 @@ async def create_user(
 ### Git Workflow
 - Pre-commit hooks will run automatically (configured in `.pre-commit-config.yaml`)
 - If hooks fail, fix issues before committing
-- Write clear commit messages describing the change
+- Use detailed, well-formatted commit messages following conventional commit standards
 - Reference issue numbers when applicable
+
+### Commit Message Standards
+Follow this structure for all commits:
+```
+<type>: <clear, concise subject line>
+
+📚 <Brief description of what was added/changed>
+
+## What's New/Changed
+- <List of specific changes>
+- <New files or major modifications>
+
+## Technical Details
+### <Relevant Section>
+- <Technical implementation details>
+- <Architecture decisions>
+- <Performance considerations>
+
+## Why This Change
+- <Business/learning value>
+- <Problem it solves>
+- <Future benefits>
+
+## Code Quality
+- <Formatting applied>
+- <Linting results>
+- <Pre-commit hook status>
+
+## Learning Value
+- <What this teaches about FastAPI/Python>
+- <Architectural insights>
+- <Best practices demonstrated>
+```
+
+**Conventional Commit Types:**
+- `feat:` - New features or functionality
+- `docs:` - Documentation changes
+- `fix:` - Bug fixes
+- `refactor:` - Code restructuring
+- `style:` - Formatting changes
+- `test:` - Adding or updating tests
+- `chore:` - Maintenance tasks
+- `perf:` - Performance improvements
 
 ## 🔍 COMMON PATTERNS
 
