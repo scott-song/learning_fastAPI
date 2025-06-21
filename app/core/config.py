@@ -40,22 +40,6 @@ class Settings(BaseSettings):
     FIRST_SUPERUSER: str = "admin@example.com"
     FIRST_SUPERUSER_PASSWORD: str = "changethis"
 
-    # Email Configuration (Optional)
-    EMAILS_ENABLED: bool = False
-    EMAILS_FROM_NAME: str = "FastAPI Project"
-    EMAILS_FROM_EMAIL: str = "noreply@example.com"
-
-    # SMTP Configuration
-    SMTP_HOST: str = "localhost"
-    SMTP_PORT: int = 587
-    SMTP_TLS: bool = True
-    SMTP_USER: str = ""
-    SMTP_PASSWORD: str = ""
-
-    # Email Templates
-    EMAIL_TEMPLATES_DIR: str = "app/email-templates"
-    EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = 48
-
     # Development Settings
     DEBUG: bool = True
     LOG_LEVEL: str = "INFO"
